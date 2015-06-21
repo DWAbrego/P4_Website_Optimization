@@ -3,6 +3,8 @@ Daniel Abrego
 Udacity Front End Developer Nanodegree
 Project 4
 Website Optimization
+
+/sources folder - this folder contains un-minified files
 ================================================================================
 
 
