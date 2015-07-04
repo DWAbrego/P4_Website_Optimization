@@ -142,6 +142,15 @@ pizzaIngredients.crusts = [
   "Stuffed Crust"
 ];
 
+/**********************************************************************
+* @@@ Moving these variables outside of loops so they are not called
+* repetitively.
+**********************************************************************/
+var randomPizzas = document.querySelectorAll(".randomPizzaContainer");
+var randomPizzasLength = randomPizzas.length;
+var items = "";
+var itemsLength = 0;
+
 // Name generator pulled from http://saturdaykid.com/usernames/generator.html
 // Capitalizes first letter of each word
 String.prototype.capitalize = function() {
@@ -433,6 +442,7 @@ var resizePizzas = function(size) {
 
   // Iterates through pizza elements on the page and changes their widths
   function changePizzaSizes(size) {
+	var newWidth = 0;
 	switch(size) {
 		case "1":
 			newWidth = 25;
@@ -447,9 +457,10 @@ var resizePizzas = function(size) {
 			console.log("bug in sizeSwitcher");
 	}
 
-	var randomPizzas = document.querySelectorAll(".randomPizzaContainer");
-
-    for (var i = 0; i < randomPizzas.length; i++) {
+	/**********************************************************************
+	* @@@ Moved randomPizzas.length calculation outside of repetitive loop
+	**********************************************************************/
+    for (var i = 0; i < randomPizzasLength; i++) {
       randomPizzas[i].style.width = newWidth + "%";
     }
   }
@@ -499,14 +510,18 @@ function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
 
-  var items = document.querySelectorAll('.mover');
   /**********************************************************************
    * @@@ Re-factored a DOM read that was being called over and over
    * resulting in multiple forced synchronous layouts
    **********************************************************************/
   var xx = document.body.scrollTop;
-  for (var i = 0; i < items.length; i++) {
-    var phase = Math.sin((xx / 1250) + (i % 5));
+
+/**********************************************************************
+* @@@ Moved repetitive division by 1250 out of loop
+**********************************************************************/
+  var cx = xx/1250;
+  for (var i = 0; i < itemsLength; i++) {
+    var phase = Math.sin((cx) + (i % 5));
     items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
 
@@ -527,19 +542,42 @@ window.addEventListener('scroll', updatePositions);
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
+
   /**********************************************************************
    * @@@ Reduce the number of pizzas that are iterated since only a few
    * can actually be shown at a time
    **********************************************************************/
-  for (var i = 0; i < 10; i++) {
+
+  var availHt = window.screen.availHeight;
+
+  for (var i = 0; i < 32; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
     elem.style.height = "100px";
     elem.style.width = "73.333px";
     elem.basicLeft = (i % cols) * s;
-    elem.style.top = (Math.floor(i / cols) * s) + 'px';
+
+    var topY = (Math.floor(i / cols) * s);
+    elem.style.top =  topY + 'px';
     document.querySelector("#movingPizzas1").appendChild(elem);
+
+    /**********************************************************************
+     * @@@ Break out of loop if the top of a pizza is more than the
+     * height of the window.
+     **********************************************************************/
+    if( topY > availHt) {
+        break;
+    }
   }
+
+  /**********************************************************************
+   * @@@ Moved 'items' calculation to here since it only needs to be called
+   * once.  Must move here so it is called before 'updatePositions()' because that
+   * function uses 'items'.
+   **********************************************************************/
+  items = document.querySelectorAll('.mover');
+  itemsLength = items.length;
   updatePositions();
+
 });

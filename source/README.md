@@ -54,23 +54,36 @@ II. 60 Frames per Second:  How to optimize views/pizza.html
 ================================================================================
 III.A. 60 Frames per Second: Optimizations made in views/js/main.js
 ================================================================================
+Line 146
+Moved variables out of loops that were doing repetitive and costly calculations.
 
-Line 424
+Line 444
 Refactored function changePizzaSizes
 - removed repetitive and slow call to document.querySelectorAll() and
   replaced with single call that is stores the result of the DOM call in variable 'randomPizzas'
 - removed unnecessary function 'determineDX()' and replaced with straight percentages
 - this allowed removal of code dependent on 'determineDX()'
 
+Line 461
+Moved randomPizzas.length calculation to a single call and stored in a variable for future use.
 
-Line 503
+Line 517
 Re-factored a DOM-read that was being called over and over resulting in multiple forced synchronous layouts.
 Pulled the DOM-read out of a loop since it only needed to be called once.
 
+Line 520
+Moved repetitive division by 1250 outside of loop and stored in a variable for future use.
 
-Line 531
+Line 553
 Reduce the number of pizzas that are iterated since only a few can actually be shown at a time on the screen.
 It was originally attempting to draw 200 pizzas at once, forcing a lot of paint envents.
+
+Line 569
+Added conditional to check if the top of the next pizza to be drawn is more than the height of the window in the
+browser.  If this is true, then stop drawing pizzas.
+
+Line 579
+Moved calculations using 'items' so that the calculation is only done once instead of repetitively within a loop.
 
 
 
