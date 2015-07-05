@@ -33,8 +33,10 @@ Remove render-blocking script resources:
 	3. Inlined the entire source of style.css directly into index.html to prevent additional request for css file.
 	4. Added attribute "media="print" to print.css.
 
-Followed link provided on PageSpeedInsights.com to "Download optimized image, JavaScript, and CSS resources for this page."
+For index.html, followed link provided on PageSpeedInsights.com to "Download optimized image, JavaScript, and CSS resources for this page."
     1. This link provided minified and compressed css/print.css, image/pizzeria.jpg, image/profilepic.jpg, js/perfmatters.js
+	2. Also started python webserver and ngrok for pizza.html, and used the same link from Pagespeed insights to obtain minified and compressed css/styles.css and js/main.js. 
+
 
 Used online HTML Compressor at https://htmlcompressor.com/compressor/ to compress index.html.
 
