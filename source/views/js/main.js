@@ -143,9 +143,9 @@ pizzaIngredients.crusts = [
 ];
 
 /**********************************************************************
-* @@@ Moving these variables outside of loops so they are not called
-* repetitively.
-**********************************************************************/
+ * @@@ Moving these variables outside of loops so they are not called
+ * repetitively.
+ **********************************************************************/
 var randomPizzas = document.querySelectorAll(".randomPizzaContainer");
 var randomPizzasLength = randomPizzas.length;
 var items = "";
@@ -458,8 +458,8 @@ var resizePizzas = function(size) {
 	}
 
 	/**********************************************************************
-	* @@@ Moved randomPizzas.length calculation outside of repetitive loop
-	**********************************************************************/
+	 * @@@ Moved randomPizzas.length calculation outside of repetitive loop
+	 **********************************************************************/
     for (var i = 0; i < randomPizzasLength; i++) {
       randomPizzas[i].style.width = newWidth + "%";
     }
@@ -516,9 +516,9 @@ function updatePositions() {
    **********************************************************************/
   var xx = document.body.scrollTop;
 
-/**********************************************************************
-* @@@ Moved repetitive division by 1250 out of loop
-**********************************************************************/
+  /**********************************************************************
+   * @@@ Moved repetitive division by 1250 out of loop
+   **********************************************************************/
   var cx = xx/1250;
   for (var i = 0; i < itemsLength; i++) {
     var phase = Math.sin((cx) + (i % 5));
